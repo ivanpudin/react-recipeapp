@@ -67,6 +67,13 @@ export default function App() {
 
   const submitHandler = (e) => {
     e.preventDefault()
+
+    const existingRecipe = recipes.find(recipe => recipe.name === newrecipe.name);
+    if (existingRecipe) {
+      alert('Cannot post the same recipe again.');
+      return;
+    }
+    
     try {
       axios
         .post('http://localhost:4000/recipes', newrecipe)
@@ -75,7 +82,8 @@ export default function App() {
           alert('Recipe has been submitted.');
         })
         .catch(error => {
-          console.log("Error submitting new recipe:", error);
+          alert('Error submitting new recipe.');
+          /* console.log("Error submitting new recipe:", error); */
         });
     } 
     catch (error) {
